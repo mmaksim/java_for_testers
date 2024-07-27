@@ -19,23 +19,17 @@ public class Geometry {
         Triangle triangle = new Triangle(a, b, c);
 
         String textP = String.format("Периментр треугольника со сторонами %f, %f, %f, = %f",
-                triangle.sideA,
-                triangle.sideB,
-                triangle.sideC,
-                Triangle.perimeter(
-                        triangle.sideA,
-                        triangle.sideB,
-                        triangle.sideC));
+                triangle.sideA(),
+                triangle.sideB(),
+                triangle.sideC(),
+                triangle.perimeter());
         System.out.println(textP);
 
         String textS = String.format("Площадь треугольника со сторонами %f, %f, %f, = %f",
-                triangle.sideA,
-                triangle.sideB,
-                triangle.sideC,
-                Triangle.area(
-                        triangle.sideA,
-                        triangle.sideB,
-                        triangle.sideC));
+                triangle.sideA(),
+                triangle.sideB(),
+                triangle.sideC(),
+                triangle.area(triangle));
         System.out.println(textS);
     }
 }

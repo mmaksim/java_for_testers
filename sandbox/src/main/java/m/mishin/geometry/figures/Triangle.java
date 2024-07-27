@@ -2,24 +2,24 @@ package m.mishin.geometry.figures;
 
 import static java.lang.Math.sqrt;
 
-public class Triangle {
+public record Triangle(double sideA, double sideB, double sideC) {
 
-    public double sideA;
+ /*   public double sideA;
     public double sideB;
     public double sideC;
 
-    public Triangle(double sideOfTriangleA, double sideOfTriangleB, double sideOfTriangleC) {
-        this.sideA = sideOfTriangleA;
-        this.sideB = sideOfTriangleB;
-        this.sideC = sideOfTriangleC;
+    public Triangle(double sideA, double sideB, double sideC) {
+        this.sideA = sideA;
+        this.sideB = sideB;
+        this.sideC = sideC;
+    }*/
+
+    public double area(Triangle triangle) {
+        double p = triangle.perimeter() / 2;
+        return sqrt((p * (p - this.sideA) * (p - this.sideB) * (p - this.sideC)));
     }
 
-    public static double perimeter(double a, double b, double c) {
-        return a + b + c;
-    }
-
-    public static double area(double a, double b, double c) {
-        double p = perimeter(a, b, c) / 2;
-        return sqrt((p * (p - a) * (p - b) * (p - c)));
+    public double perimeter() {
+        return this.sideA + this.sideB + this.sideC;
     }
 }
