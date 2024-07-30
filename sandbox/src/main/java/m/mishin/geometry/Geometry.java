@@ -29,7 +29,7 @@ public class Geometry {
                 triangle.sideA(),
                 triangle.sideB(),
                 triangle.sideC(),
-                triangle.area(triangle));
+                triangle.area());
         System.out.println(textS);
     }
 }

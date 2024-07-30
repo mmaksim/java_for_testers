@@ -14,8 +14,8 @@ public record Triangle(double sideA, double sideB, double sideC) {
         this.sideC = sideC;
     }*/
 
-    public double area(Triangle triangle) {
-        double p = triangle.perimeter() / 2;
+    public double area() {
+        double p = perimeter() / 2;
         return sqrt((p * (p - this.sideA) * (p - this.sideB) * (p - this.sideC)));
     }
 

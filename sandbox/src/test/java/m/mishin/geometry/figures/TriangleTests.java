@@ -8,7 +8,7 @@ public class TriangleTests {
     @Test
     void canCalculateArea() {
         var triangle = new Triangle(3, 4, 5);
-        double result = triangle.area(triangle);
+        double result = triangle.area();
         Assertions.assertEquals(6, result);
     }
 
