@@ -27,12 +27,36 @@ public class TriangleTests {
         } catch (IllegalArgumentException exception) {
             //OK
         }
+        try {
+            new Triangle(3, 4, 0);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            //OK
+        }
+        try {
+            new Triangle(3, -4, 5);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            //OK
+        }
     }
 
     @Test
     void cannotCreateInequalityTriangle() {
         try {
             new Triangle(15, 5, 5);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            //OK
+        }
+        try {
+            new Triangle(5, 15, 5);
+            Assertions.fail();
+        } catch (IllegalArgumentException exception) {
+            //OK
+        }
+        try {
+            new Triangle(2, 2, 10);
             Assertions.fail();
         } catch (IllegalArgumentException exception) {
             //OK
