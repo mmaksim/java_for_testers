@@ -62,4 +62,30 @@ public class TriangleTests {
             //OK
         }
     }
+
+    @Test
+    void testTriangle() {
+        var triangle1 = new Triangle(3, 4, 5);
+        var triangle2 = new Triangle(4, 5, 3);
+        var triangle3 = new Triangle(5, 4, 3);
+        var triangle4 = new Triangle(3, 5, 4);
+        var triangle5 = new Triangle(4, 3, 5);
+        var triangle6 = new Triangle(5, 3, 4);
+
+        Assertions.assertEquals(triangle1, triangle2);
+        Assertions.assertEquals(triangle1, triangle3);
+        Assertions.assertEquals(triangle1, triangle4);
+        Assertions.assertEquals(triangle1, triangle5);
+        Assertions.assertEquals(triangle1, triangle6);
+        Assertions.assertEquals(triangle2, triangle3);
+        Assertions.assertEquals(triangle2, triangle4);
+        Assertions.assertEquals(triangle2, triangle5);
+        Assertions.assertEquals(triangle2, triangle6);
+        Assertions.assertEquals(triangle3, triangle4);
+        Assertions.assertEquals(triangle3, triangle5);
+        Assertions.assertEquals(triangle3, triangle6);
+        Assertions.assertEquals(triangle4, triangle5);
+        Assertions.assertEquals(triangle4, triangle6);
+        Assertions.assertEquals(triangle5, triangle6);
+    }
 }
