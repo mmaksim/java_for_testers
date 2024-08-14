@@ -17,6 +17,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    //обязательная проверка
     if (project.hasProperty("browser")) {
         systemProperty("browser", project.property("browser"))
     }
