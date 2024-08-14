@@ -39,11 +39,12 @@ public class ContactCreationTests extends TestBase {
     }
 
     @Test
-    public void canCreateContactWithNameAndAddress() {
+    public void canCreateContactWithNameAddressEmailsAndPhones() {
         app.contacts().createContact(new ContactData()
                 .withFirstName("TestName")
                 .withLastName("Ivanov")
-                .withAllEmails("test@mail.com", "test2@mail.com","test3@mail.com")
+                .withAddress("New address")
+                .withAllEmails("test@mail.com", "test2@mail.com", "test3@mail.com")
                 .withAllPhones("757575", "+79994443231", "123321", "321")
         );
     }

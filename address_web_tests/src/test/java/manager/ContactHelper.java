@@ -51,7 +51,7 @@ public class ContactHelper extends HelperBase {
     }
 
     private void returnToContactPage() {
-        manager.driver.findElement(By.linkText("home page")).click();
+        manager.driver.findElement(By.linkText("home")).click();
     }
 
     private void submitContactCreation() {
@@ -74,6 +74,41 @@ public class ContactHelper extends HelperBase {
     private void setToDropdown(By locator, String day) {
         click(locator);
         manager.driver.findElement(locator).sendKeys(day);
+    }
+
+    public boolean isContactPresent() {
+        openContactPage();
+        return manager.isElementPresent(By.name("selected[]"));
+    }
+
+    public void openContactPage() {
+        if (!manager.isElementPresent(By.id("maintable"))) {
+            click(By.linkText("home"));
+        }
+    }
+
+    public void removeContact() {
+        openContactPage();
+        selectContact();
+        removeSelectedContact();
+        returnToContactPage();
+    }
+
+    private void selectContact() {
+        click(By.name("selected[]"));
+    }
+
+    private void removeSelectedContact() {
+        click(By.xpath("//input[@value='Delete']"));
+    }
+
+    private void removeAllContacts() {
+        selectAllContacts();
+        removeSelectedContact();
+    }
+
+    private void selectAllContacts() {
+        click(By.id("MassCB"));
     }
 }
 
