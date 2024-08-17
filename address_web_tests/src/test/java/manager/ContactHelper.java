@@ -97,7 +97,7 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//input[@value='Delete']"));
     }
 
-    private void removeAllContacts() {
+    public void removeAllContacts() {
         selectAllContacts();
         removeSelectedContact();
     }

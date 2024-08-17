@@ -56,6 +56,7 @@ public class ContactRemovalTests extends TestBase {
                     .withAllEmails("test111@mail.com", "test2222@mail.com", "test3@mail.com")
                     .withAllPhones("757575", "+79992243231", "123321", "321"));
         }
-        app.contacts().removeContact();
+        app.contacts().removeAllContacts();
+        Assertions.assertEquals(0, app.contacts().getCount());
     }
 }
