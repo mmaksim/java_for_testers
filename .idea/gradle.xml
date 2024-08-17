@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$/../addressbook_web_tests" />
           </set>
         </option>
+        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/address_web_tests" />
