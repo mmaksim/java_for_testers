@@ -1,6 +1,7 @@
 package tests;
 
 import model.ContactData;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -9,6 +10,8 @@ public class ContactCreationTests extends TestBase {
 
     @Test
     public void canCreateContact() {
+
+        int contactCount = app.contacts().getCount();
         app.contacts().createContact(new ContactData("First Name",
                 "Middle Name",
                 "Last Name",
@@ -31,7 +34,11 @@ public class ContactCreationTests extends TestBase {
                 "15",
                 "December",
                 "2012"));
+
+        int newContactCount = app.contacts().getCount();
+        Assertions.assertEquals(contactCount + 1, newContactCount);
     }
+
 
     @Test
     public void canCreateEmptyContact() {

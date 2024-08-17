@@ -76,11 +76,6 @@ public class ContactHelper extends HelperBase {
         manager.driver.findElement(locator).sendKeys(day);
     }
 
-    public boolean isContactPresent() {
-        openContactPage();
-        return manager.isElementPresent(By.name("selected[]"));
-    }
-
     public void openContactPage() {
         if (!manager.isElementPresent(By.id("maintable"))) {
             click(By.linkText("home"));
@@ -109,6 +104,11 @@ public class ContactHelper extends HelperBase {
 
     private void selectAllContacts() {
         click(By.id("MassCB"));
+    }
+
+    public int getCount() {
+        openContactPage();
+        return manager.driver.findElements(By.name("selected[]")).size();
     }
 }
 

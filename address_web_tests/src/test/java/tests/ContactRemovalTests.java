@@ -1,6 +1,7 @@
 package tests;
 
 import model.ContactData;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -9,7 +10,7 @@ public class ContactRemovalTests extends TestBase {
 
     @Test
     public void canContactRemoval() {
-        if(!app.contacts().isContactPresent()){
+        if (app.contacts().getCount() == 0) {
             app.contacts().createContact(new ContactData("First Name",
                     "Middle Name",
                     "Last Name",
@@ -33,12 +34,15 @@ public class ContactRemovalTests extends TestBase {
                     "December",
                     "2012"));
         }
+        int contactCount = app.contacts().getCount();
         app.contacts().removeContact();
+        int newContactCount = app.contacts().getCount();
+        Assertions.assertEquals(contactCount - 1, newContactCount);
     }
 
     @Test
     public void canRemovalAllContacts() {
-        if(!app.contacts().isContactPresent()){
+        if (app.contacts().getCount() == 0) {
             app.contacts().createContact(new ContactData()
                     .withFirstName("TestName")
                     .withLastName("Ivanov")
