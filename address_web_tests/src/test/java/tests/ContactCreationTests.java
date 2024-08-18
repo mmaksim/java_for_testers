@@ -68,12 +68,11 @@ public class ContactCreationTests extends TestBase {
         app.contacts().createContact(contact);
         var expectList = new ArrayList<>(oldContacts);
         var newContact = app.contacts().getList();
-        expectList.add(contact.withId(newContact.get(newContact.size()-1).id()));
-//        expectList.add(contact.withId(newContact.getLast().id()));
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
         newContact.sort(compareById);
+        expectList.add(contact.withId(newContact.getLast().id()));
         expectList.sort(compareById);
 
         Assertions.assertEquals(newContact, expectList);
