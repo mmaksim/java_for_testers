@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ContactCreationTests extends TestBase {
@@ -32,6 +33,7 @@ public class ContactCreationTests extends TestBase {
        }
         for (int i = 0; i < 5; i++) {
             result.add(new ContactData(
+                    "",
                     randomString(i * 10),
                     randomString(i * 10),
                     randomString(i * 10),
@@ -62,10 +64,19 @@ public class ContactCreationTests extends TestBase {
     @ParameterizedTest
     @MethodSource("contactProvider")
     public void canCreateMultipleContacts(ContactData contact) {
-        int contactCount = app.contacts().getCount();
+        var oldContacts = app.contacts().getList();
         app.contacts().createContact(contact);
-        int newContactCount = app.contacts().getCount();
-        Assertions.assertEquals(contactCount + 1, newContactCount);
+        var expectList = new ArrayList<>(oldContacts);
+        var newContact = app.contacts().getList();
+        expectList.add(contact.withId(newContact.get(newContact.size()-1).id()));
+//        expectList.add(contact.withId(newContact.getLast().id()));
+        Comparator<ContactData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        newContact.sort(compareById);
+        expectList.sort(compareById);
+
+        Assertions.assertEquals(newContact, expectList);
     }
 
     public static List<ContactData> negativeContactProvider() {
@@ -79,9 +90,9 @@ public class ContactCreationTests extends TestBase {
     @ParameterizedTest
     @MethodSource("negativeContactProvider")
     public void canNotCreateContact(ContactData contact) {
-        int contactCount = app.contacts().getCount();
+        var oldContacts = app.contacts().getList();
         app.contacts().createContact(contact);
-        int newContactCount = app.contacts().getCount();
-        Assertions.assertEquals(contactCount, newContactCount);
+        var newContact = app.contacts().getList();
+        Assertions.assertEquals(oldContacts, newContact);
     }
 }

@@ -4,6 +4,8 @@ import model.ContactData;
 import org.openqa.selenium.By;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ContactHelper extends HelperBase {
@@ -45,7 +47,7 @@ public class ContactHelper extends HelperBase {
     }
 
     private void uploadFile(File file) {
-        if(file != null) {
+        if (file != null) {
             manager.driver.findElement(By.name("photo")).sendKeys(file.getAbsolutePath());
         }
     }
@@ -82,15 +84,15 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public void removeContact() {
+    public void removeContact(ContactData contact) {
         openContactPage();
-        selectContact();
+        selectContact(contact);
         removeSelectedContact();
         returnToContactPage();
     }
 
-    private void selectContact() {
-        click(By.name("selected[]"));
+    private void selectContact(ContactData contact) {
+        click(By.cssSelector(String.format("input[id='%s']", contact.id())));
     }
 
     private void removeSelectedContact() {
@@ -109,6 +111,40 @@ public class ContactHelper extends HelperBase {
     public int getCount() {
         openContactPage();
         return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
+    public List<ContactData> getList() {
+        openContactPage();
+        var contacts = new ArrayList<ContactData>();
+        var entries = manager.driver.findElements(By.name("entry"));
+        for (var entry : entries) {
+            var checkbox = entry.findElement(By.cssSelector("input"));
+            var id = checkbox.getAttribute("value");
+            var lastName = entry.findElement(By.cssSelector("td:nth-child(2)")).getText();
+            var firstName = entry.findElement(By.cssSelector("td:nth-child(3)")).getText();
+            var address = entry.findElement(By.cssSelector("td:nth-child(4)")).getText();
+/*            var allEmails = entry.findElement(By.cssSelector("td:nth-child(5)")).getText().split("\n");
+            var allPhones = entry.findElement(By.cssSelector("td:nth-child(6)")).getText().split("\n");
+
+            String[] emails = new String[] {"", "", ""};
+            for (int i = 0; i < allEmails.length; i++){
+                emails[i] = allEmails[i];
+            }
+
+            String[] phones = new String[] {"", "", "", ""};
+            for (int i = 0; i < allPhones.length; i++){
+                phones[i] = allPhones[i];
+            }
+*/
+            contacts.add(new ContactData()
+                    .withId(id)
+                    .withLastName(lastName)
+                    .withFirstName(firstName)
+                    .withAddress(address));
+                    //.withAllEmails(emails[0], emails[1], emails[2])
+                    //.withAllPhones(phones[0], phones[1], phones[2], phones[3]));
+        }
+        return contacts;
     }
 }
 
