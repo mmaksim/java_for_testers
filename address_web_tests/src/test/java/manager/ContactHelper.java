@@ -126,13 +126,13 @@ public class ContactHelper extends HelperBase {
             var allEmails = entry.findElement(By.cssSelector("td:nth-child(5)")).getText().split("\n");
             var allPhones = entry.findElement(By.cssSelector("td:nth-child(6)")).getText().split("\n");
 
-            String[] emails = new String[] {"", "", ""};
-            for (int i = 0; i < allEmails.length; i++){
+            String[] emails = new String[]{"", "", ""};
+            for (int i = 0; i < allEmails.length; i++) {
                 emails[i] = allEmails[i];
             }
 
-            String[] phones = new String[] {"", "", "", ""};
-            for (int i = 0; i < allPhones.length; i++){
+            String[] phones = new String[]{"", "", "", ""};
+            for (int i = 0; i < allPhones.length; i++) {
                 phones[i] = allPhones[i];
             }
 
@@ -145,6 +145,25 @@ public class ContactHelper extends HelperBase {
                     .withAllPhones(phones[0], phones[1], phones[2], phones[3]));
         }
         return contacts;
+    }
+
+    public void modifyContact(ContactData contact, ContactData modifiedContact) {
+        openContactPage();
+        initContactModification(contact);
+        fillContactForm(modifiedContact);
+        submitContactModify();
+        returnToContactPage();
+    }
+
+    private void submitContactModify() {
+        click(By.name("update"));
+    }
+
+    private void initContactModification(ContactData contact) {
+        var elementId = manager.driver.findElement(By.id(contact.id()));
+        var entry = elementId.findElement(By.xpath("../.."));
+        var editButton = entry.findElement(By.cssSelector("td:nth-child(8)"));
+        editButton.click();
     }
 }
 
