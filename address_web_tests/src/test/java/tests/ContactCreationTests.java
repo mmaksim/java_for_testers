@@ -12,25 +12,25 @@ import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-    public static List<ContactData> contactProvider(){
-       var result = new ArrayList<ContactData>();
-       for (var lastName : List.of("", "Last Name")) {
-           for (var firstName : List.of("", "First Name")) {
-               for (var address : List.of("", "New Address")) {
-                   for (var email : List.of("", "newemail1@gmail.com")) {
-                       for (var phone : List.of("", "7778889990102")) {
-                           result.add(new ContactData().
-                                   withLastName(lastName).
-                                   withFirstName(firstName).
-                                   withAddress(address).
-                                   withAllPhones(phone, "", "", "")
-                                   .withAllEmails(email, "", ""));
-                       }
-                   }
+    public static List<ContactData> contactProvider() {
+        var result = new ArrayList<ContactData>();
+        for (var lastName : List.of("", "Last Name")) {
+            for (var firstName : List.of("", "First Name")) {
+                for (var address : List.of("", "New Address")) {
+                    for (var email : List.of("", "newemail1@gmail.com")) {
+                        for (var phone : List.of("", "7778889990101")) {
+                            result.add(new ContactData().
+                                    withLastName(lastName).
+                                    withFirstName(firstName).
+                                    withAddress(address).
+                                    withAllPhones(phone, "", "", "")
+                                    .withAllEmails(email, "", ""));
+                        }
+                    }
 
-               }
-           }
-       }
+                }
+            }
+        }
         for (int i = 0; i < 5; i++) {
             result.add(new ContactData(
                     "",
@@ -42,13 +42,13 @@ public class ContactCreationTests extends TestBase {
                     randomString(i * 10),
                     randomString(i * 10),
                     randomString(i * 10),
-                    randomNumbers(),
-                    randomNumbers(),
-                    randomNumbers(),
-                    randomNumbers(),
-                    randomString(i * 10) + "@mail.com",
-                    randomString(i * 10) + "@mail.com",
-                    randomString(i * 10) + "@mail.com",
+                    randomNumbers() + "1",
+                    randomNumbers() + "2",
+                    randomNumbers() + "3",
+                    randomNumbers() + "4",
+                    randomString(i * 10) + "1@mail.com",
+                    randomString(i * 10) + "2@mail.com",
+                    randomString(i * 10) + "3@mail.com",
                     randomString(i * 10),
                     "20",
                     "May",

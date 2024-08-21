@@ -18,8 +18,8 @@ public class ContactModificationTests extends TestBase {
                     .withFirstName("AddedFirstName")
                     .withLastName("AddedLastName")
                     .withAddress("Added address")
-                    .withAllEmails("testadd@mail.com", "testadd2@mail.com", "testadd3@mail.com")
-                    .withAllPhones("257575", "+79994343231", "1233121", "444321"));
+                    .withAllEmails("testadd1@mail.com", "testadd2@mail.com", "testadd3@mail.com")
+                    .withAllPhones("257571", "+799943432312", "12331213", "4443214"));
         }
         var oldContacts = app.contacts().getList();
         var rnd = new Random();
@@ -32,10 +32,10 @@ public class ContactModificationTests extends TestBase {
                 "Modify Title",
                 "Modify Company",
                 "Modify Address",
-                "757575",
-                "78005553535",
-                "79005553535",
-                "76005553535",
+                "7575751",
+                "780055535352",
+                "790055535353",
+                "760055535354",
                 "email1@mail.com",
                 "email2@mail.com",
                 "email3@mail.com",
