@@ -25,9 +25,11 @@ public class ContactRemovalTests extends TestBase {
                     "78005553535",
                     "79005553535",
                     "76005553535",
+                    "",
                     "email1@mail.com",
                     "email2@mail.com",
                     "email3@mail.com",
+                    "",
                     "MyHomePage",
                     "20",
                     "May",
@@ -53,14 +55,14 @@ public class ContactRemovalTests extends TestBase {
                     .withFirstName("TestName")
                     .withLastName("Ivanov")
                     .withAddress("New address")
-                    .withAllEmails("test@mail.com", "test2@mail.com", "test3@mail.com")
-                    .withAllPhones("757575", "+79994443231", "123321", "321"));
+                    .withEmails("test@mail.com", "test2@mail.com", "test3@mail.com")
+                    .withPhones("757575", "+79994443231", "123321", "321"));
             app.contacts().createContact(new ContactData()
                     .withFirstName("Max")
                     .withLastName("Ivanov")
                     .withAddress("One more address")
-                    .withAllEmails("test111@mail.com", "test2222@mail.com", "test3@mail.com")
-                    .withAllPhones("757575", "+79992243231", "123321", "321"));
+                    .withEmails("test111@mail.com", "test2222@mail.com", "test3@mail.com")
+                    .withPhones("757575", "+79992243231", "123321", "321"));
         }
         app.contacts().removeAllContacts();
         Assertions.assertEquals(0, app.contacts().getCount());

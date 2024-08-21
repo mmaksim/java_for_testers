@@ -125,9 +125,9 @@ public class ContactHelper extends HelperBase {
             var lastName = entry.findElement(By.cssSelector("td:nth-child(2)")).getText();
             var firstName = entry.findElement(By.cssSelector("td:nth-child(3)")).getText();
             var address = entry.findElement(By.cssSelector("td:nth-child(4)")).getText();
-            var allEmails = entry.findElement(By.cssSelector("td:nth-child(5)")).getText().split("\n");
-            var allPhones = entry.findElement(By.cssSelector("td:nth-child(6)")).getText().split("\n");
-            String[] emails = new String[]{"", "", ""};
+            var allEmails = entry.findElement(By.cssSelector("td:nth-child(5)")).getText();
+            var allPhones = entry.findElement(By.cssSelector("td:nth-child(6)")).getText();
+/*            String[] emails = new String[]{"", "", ""};
             if (!allEmails[0].equals("")) {
                 for (String email : allEmails) {
                     int number = extractNumber(email);
@@ -141,15 +141,15 @@ public class ContactHelper extends HelperBase {
                     int lastDigit = getLastDigit(number);
                     phones[lastDigit - 1] = number;
                 }
-            }
+            }*/
 
             contacts.add(new ContactData()
                     .withId(id)
                     .withLastName(lastName)
                     .withFirstName(firstName)
                     .withAddress(address)
-                    .withAllEmails(emails[0], emails[1], emails[2])
-                    .withAllPhones(phones[0], phones[1], phones[2], phones[3]));
+                    .withAllEmails(allEmails)
+                    .withAllPhones(allPhones));
         }
         return contacts;
     }

@@ -23,8 +23,8 @@ public class ContactCreationTests extends TestBase {
                                     withLastName(lastName).
                                     withFirstName(firstName).
                                     withAddress(address).
-                                    withAllPhones(phone, "", "", "")
-                                    .withAllEmails(email, "", ""));
+                                    withPhones(phone, "", "", "")
+                                    .withEmails(email, "", ""));
                         }
                     }
 
@@ -46,9 +46,11 @@ public class ContactCreationTests extends TestBase {
                     randomNumbers() + "2",
                     randomNumbers() + "3",
                     randomNumbers() + "4",
+                    "",
                     randomString(i * 10) + "1@mail.com",
                     randomString(i * 10) + "2@mail.com",
                     randomString(i * 10) + "3@mail.com",
+                    "",
                     randomString(i * 10),
                     "20",
                     "May",

@@ -16,19 +16,22 @@ public record ContactData(String id,
                           String mobileNumber,
                           String workNumber,
                           String faxNumber,
+                          String allPhones,
                           String email,
                           String email2,
                           String email3,
+                          String allEmails,
                           String homePage,
                           String birthDay,
                           String birthMonth,
                           String birthYear,
                           String anniversaryDay,
                           String anniversaryMonth,
-                          String anniversaryYear) {
+                          String anniversaryYear
+) {
 
     public ContactData() {
-        this("", "", "", "", "", null, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+        this("", "", "", "", "", null, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
     }
 
     public ContactData withId(String id) {
@@ -46,16 +49,19 @@ public record ContactData(String id,
                 this.mobileNumber,
                 this.workNumber,
                 this.faxNumber,
+                this.allPhones,
                 this.email,
                 this.email2,
                 this.email3,
+                this.allEmails,
                 this.homePage,
                 this.birthDay,
                 this.birthMonth,
                 this.birthYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear);
+                this.anniversaryYear
+        );
     }
 
     public ContactData withFirstName(String firstName) {
@@ -73,16 +79,19 @@ public record ContactData(String id,
                 this.mobileNumber,
                 this.workNumber,
                 this.faxNumber,
+                this.allPhones,
                 this.email,
                 this.email2,
                 this.email3,
+                this.allEmails,
                 this.homePage,
                 this.birthDay,
                 this.birthMonth,
                 this.birthYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear);
+                this.anniversaryYear
+        );
     }
 
     public ContactData withLastName(String lastName) {
@@ -100,16 +109,19 @@ public record ContactData(String id,
                 this.mobileNumber,
                 this.workNumber,
                 this.faxNumber,
+                this.allPhones,
                 this.email,
                 this.email2,
                 this.email3,
+                this.allEmails,
                 this.homePage,
                 this.birthDay,
                 this.birthMonth,
                 this.birthYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear);
+                this.anniversaryYear
+        );
     }
 
     public ContactData withAddress(String address) {
@@ -127,19 +139,22 @@ public record ContactData(String id,
                 this.mobileNumber,
                 this.workNumber,
                 this.faxNumber,
+                this.allPhones,
                 this.email,
                 this.email2,
                 this.email3,
+                this.allEmails,
                 this.homePage,
                 this.birthDay,
                 this.birthMonth,
                 this.birthYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear);
+                this.anniversaryYear
+        );
     }
 
-    public ContactData withAllPhones(String homeNumber, String mobileNumber, String workNumber, String faxNumber) {
+    public ContactData withPhones(String homeNumber, String mobileNumber, String workNumber, String faxNumber) {
         return new ContactData(
                 this.id,
                 this.firstName,
@@ -154,19 +169,22 @@ public record ContactData(String id,
                 mobileNumber,
                 workNumber,
                 faxNumber,
+                this.allPhones,
                 this.email,
                 this.email2,
                 this.email3,
+                this.allEmails,
                 this.homePage,
                 this.birthDay,
                 this.birthMonth,
                 this.birthYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear);
+                this.anniversaryYear
+        );
     }
 
-    public ContactData withAllEmails(String email, String email2, String email3) {
+    public ContactData withEmails(String email, String email2, String email3) {
         return new ContactData(
                 this.id,
                 this.firstName,
@@ -181,16 +199,19 @@ public record ContactData(String id,
                 this.mobileNumber,
                 this.workNumber,
                 this.faxNumber,
+                this.allPhones,
                 email,
                 email2,
                 email3,
+                this.allEmails,
                 this.homePage,
                 this.birthDay,
                 this.birthMonth,
                 this.birthYear,
                 this.anniversaryDay,
                 this.anniversaryMonth,
-                this.anniversaryYear);
+                this.anniversaryYear
+        );
     }
 
     @Override
@@ -204,5 +225,65 @@ public record ContactData(String id,
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName);
+    }
+
+    public ContactData withAllEmails(String allEmails) {
+        return new ContactData(
+                this.id,
+                this.firstName,
+                this.middleName,
+                this.lastName,
+                this.nickName,
+                this.file,
+                this.title,
+                this.company,
+                this.address,
+                this.homeNumber,
+                this.mobileNumber,
+                this.workNumber,
+                this.faxNumber,
+                this.allPhones,
+                this.email,
+                this.email2,
+                this.email3,
+                allEmails,
+                this.homePage,
+                this.birthDay,
+                this.birthMonth,
+                this.birthYear,
+                this.anniversaryDay,
+                this.anniversaryMonth,
+                this.anniversaryYear
+        );
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        return new ContactData(
+                this.id,
+                this.firstName,
+                this.middleName,
+                this.lastName,
+                this.nickName,
+                this.file,
+                this.title,
+                this.company,
+                this.address,
+                this.homeNumber,
+                this.mobileNumber,
+                this.workNumber,
+                this.faxNumber,
+                allPhones,
+                this.email,
+                this.email2,
+                this.email3,
+                this.allEmails,
+                this.homePage,
+                this.birthDay,
+                this.birthMonth,
+                this.birthYear,
+                this.anniversaryDay,
+                this.anniversaryMonth,
+                this.anniversaryYear
+        );
     }
 }
