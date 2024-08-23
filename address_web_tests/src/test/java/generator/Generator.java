@@ -4,6 +4,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import common.CommonFunctions;
@@ -27,7 +28,7 @@ public class Generator {
     int count;
 
     //--type groups --output groups.json --format json --count 3
-//--type contacts --output contacts.json --format json --count 10
+    //--type contacts --output contacts.json --format json --count 5
     public static void main(String[] args) throws IOException {
         var generator = new Generator();
         JCommander.newBuilder()
@@ -83,7 +84,6 @@ public class Generator {
         return result;
     }
 
-
     private void save(Object date) throws IOException {
         if ("json".equals(format)) {
             ObjectMapper mapper = new ObjectMapper();
@@ -93,13 +93,13 @@ public class Generator {
             try (var writer = new FileWriter(output)) {
                 writer.write(json);
             }
-
-        } if ("yaml".equals(format)) {
-                var mapper = new YAMLMapper();
-                mapper.writeValue(new File(output), date);
-        }
-
-        else {
+        } else if ("yaml".equals(format)) {
+            var mapper = new YAMLMapper();
+            mapper.writeValue(new File(output), date);
+        } else if ("xml".equals(format)) {
+            var mapper = new XmlMapper();
+            mapper.writeValue(new File(output), date);
+        } else {
             throw new IllegalArgumentException("Неизвестный формат данных " + format);
         }
 

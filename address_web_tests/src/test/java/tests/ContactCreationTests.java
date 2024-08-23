@@ -37,34 +37,6 @@ public class ContactCreationTests extends TestBase {
                 }
             }
         }
-        /*for (int i = 0; i < 5; i++) {
-            result.add(new ContactData(
-                    "",
-                    CommonFunctions.randomString(i * 10),
-                    CommonFunctions.randomString(i * 10),
-                    CommonFunctions.randomString(i * 10),
-                    CommonFunctions.randomString(i * 10),
-                    CommonFunctions.randomFile("src/test/resources/images"),
-                    CommonFunctions.randomString(i * 10),
-                    CommonFunctions.randomString(i * 10),
-                    CommonFunctions.randomString(i * 10),
-                    CommonFunctions.randomNumbers() + "1",
-                    CommonFunctions.randomNumbers() + "2",
-                    CommonFunctions.randomNumbers() + "3",
-                    CommonFunctions.randomNumbers() + "4",
-                    "",
-                    CommonFunctions.randomString(i * 10) + "1@mail.com",
-                    CommonFunctions.randomString(i * 10) + "2@mail.com",
-                    CommonFunctions.randomString(i * 10) + "3@mail.com",
-                    "",
-                    CommonFunctions.randomString(i * 10),
-                    "20",
-                    "May",
-                    "1990",
-                    "15",
-                    "December",
-                    "2012"));
-        }*/
 
         ObjectMapper mapper = new ObjectMapper();
         var value = mapper.readValue(new File("contacts.json"), new TypeReference<List<ContactData>>() {});
