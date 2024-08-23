@@ -12,6 +12,8 @@ import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
+    static File photo = new File("src/test/resources/images/fileOne.jpg");
+
     public static List<ContactData> contactProvider() {
         var result = new ArrayList<ContactData>();
         for (var lastName : List.of("", "Last Name")) {
@@ -19,12 +21,13 @@ public class ContactCreationTests extends TestBase {
                 for (var address : List.of("", "New Address")) {
                     for (var email : List.of("", "newemail1@gmail.com")) {
                         for (var phone : List.of("", "7778889990101")) {
-                            result.add(new ContactData().
-                                    withLastName(lastName).
-                                    withFirstName(firstName).
-                                    withAddress(address).
-                                    withPhones(phone, "", "", "")
-                                    .withEmails(email, "", ""));
+                            result.add(new ContactData()
+                                    .withLastName(lastName)
+                                    .withFirstName(firstName)
+                                    .withAddress(address)
+                                    .withPhones(phone, "", "", "")
+                                    .withEmails(email, "", "")
+                                    .withPhoto(photo));
                         }
                     }
 
@@ -38,7 +41,7 @@ public class ContactCreationTests extends TestBase {
                     randomString(i * 10),
                     randomString(i * 10),
                     randomString(i * 10),
-                    new File("C:\\Users\\Maks\\Desktop\\java_for_testers\\address_web_tests\\src\\test\\resources\\fileOne.jpg"),
+                    photo,
                     randomString(i * 10),
                     randomString(i * 10),
                     randomString(i * 10),

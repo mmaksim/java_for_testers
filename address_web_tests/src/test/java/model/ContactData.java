@@ -286,4 +286,34 @@ public record ContactData(String id,
                 this.anniversaryYear
         );
     }
+
+    public ContactData withPhoto(File photo) {
+        return new ContactData(
+                this.id,
+                this.firstName,
+                this.middleName,
+                this.lastName,
+                this.nickName,
+                photo,
+                this.title,
+                this.company,
+                this.address,
+                this.homeNumber,
+                this.mobileNumber,
+                this.workNumber,
+                this.faxNumber,
+                this.allPhones,
+                this.email,
+                this.email2,
+                this.email3,
+                this.allEmails,
+                this.homePage,
+                this.birthDay,
+                this.birthMonth,
+                this.birthYear,
+                this.anniversaryDay,
+                this.anniversaryMonth,
+                this.anniversaryYear
+        );
+    }
 }

@@ -6,8 +6,6 @@ import org.openqa.selenium.By;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class ContactHelper extends HelperBase {
@@ -28,7 +26,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("middlename"), contactData.middleName());
         type(By.name("lastname"), contactData.lastName());
         type(By.name("nickname"), contactData.nickName());
-        uploadFile(contactData.file());
+        attach(By.name("photo"), contactData.file());
         type(By.name("title"), contactData.title());
         type(By.name("company"), contactData.company());
         type(By.name("address"), contactData.address());
@@ -48,9 +46,9 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    private void uploadFile(File file) {
+    private void attach(By locator, File file) {
         if (file != null) {
-            manager.driver.findElement(By.name("photo")).sendKeys(file.getAbsolutePath());
+            manager.driver.findElement(locator).sendKeys(file.getAbsolutePath());
         }
     }
 
@@ -127,22 +125,6 @@ public class ContactHelper extends HelperBase {
             var address = entry.findElement(By.cssSelector("td:nth-child(4)")).getText();
             var allEmails = entry.findElement(By.cssSelector("td:nth-child(5)")).getText();
             var allPhones = entry.findElement(By.cssSelector("td:nth-child(6)")).getText();
-/*            String[] emails = new String[]{"", "", ""};
-            if (!allEmails[0].equals("")) {
-                for (String email : allEmails) {
-                    int number = extractNumber(email);
-                    emails[number - 1] = email;
-                }
-            }
-
-            String[] phones = new String[]{"", "", "", ""};
-            if (!allPhones[0].equals("")) {
-                for (String number : allPhones) {
-                    int lastDigit = getLastDigit(number);
-                    phones[lastDigit - 1] = number;
-                }
-            }*/
-
             contacts.add(new ContactData()
                     .withId(id)
                     .withLastName(lastName)
@@ -152,24 +134,6 @@ public class ContactHelper extends HelperBase {
                     .withAllPhones(allPhones));
         }
         return contacts;
-    }
-
-    private int extractNumber(String email) {
-        Pattern pattern = Pattern.compile("(\\d)(?=@)");
-        Matcher matcher = pattern.matcher(email);
-        if (matcher.find()) {
-            return Integer.parseInt(matcher.group(1));
-        }
-        return -1;
-    }
-
-    private static int getLastDigit(String number) {
-        String digits = number.replaceAll("[^0-9]", "");
-        if (!digits.isEmpty()) {
-            char lastChar = digits.charAt(digits.length() - 1);
-            return Character.getNumericValue(lastChar);
-        }
-        return -1;
     }
 
     public void modifyContact(ContactData contact, ContactData modifiedContact) {
