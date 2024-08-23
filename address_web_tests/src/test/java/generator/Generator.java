@@ -2,11 +2,16 @@ package generator;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import common.CommonFunctions;
 import model.ContactData;
 import model.GroupData;
 
-import java.io.ObjectStreamException;
+import java.io.*;
+import java.lang.runtime.ObjectMethods;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +28,7 @@ public class Generator {
 
     //--type groups --output groups.json --format json --count 3
 //--type contacts --output contacts.json --format json --count 10
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         var generator = new Generator();
         JCommander.newBuilder()
                 .addObject(generator)
@@ -32,7 +37,7 @@ public class Generator {
         generator.run();
     }
 
-    private void run() {
+    private void run() throws IOException {
         var date = generate();
         save(date);
     }
@@ -61,7 +66,7 @@ public class Generator {
                     .withEmails(CommonFunctions.randomString(i * 5) + "@mail.com",
                             CommonFunctions.randomString(i * 5) + "1@mail.com",
                             CommonFunctions.randomString(i * 5) + "1@mail.com")
-                    .withPhoto(CommonFunctions.randomFile("address_web_tests/src/test/resources/images")));
+                    .withPhoto(CommonFunctions.randomFile("src/test/resources/images")));
         }
         return result;
     }
@@ -79,6 +84,24 @@ public class Generator {
     }
 
 
-    private void save(Object date) {
+    private void save(Object date) throws IOException {
+        if ("json".equals(format)) {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.enable(SerializationFeature.INDENT_OUTPUT);
+            var json = mapper.writeValueAsString(date);
+
+            try (var writer = new FileWriter(output)) {
+                writer.write(json);
+            }
+
+        } if ("yaml".equals(format)) {
+                var mapper = new YAMLMapper();
+                mapper.writeValue(new File(output), date);
+        }
+
+        else {
+            throw new IllegalArgumentException("Неизвестный формат данных " + format);
+        }
+
     }
 }
