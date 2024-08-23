@@ -1,6 +1,5 @@
 package model;
 
-import java.io.File;
 import java.util.Objects;
 
 public record ContactData(String id,
