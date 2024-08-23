@@ -17,7 +17,7 @@ public class ContactRemovalTests extends TestBase {
                     "Middle Name",
                     "Last Name",
                     "Nick Name",
-                    new File("C:\\Users\\Maks\\Desktop\\java_for_testers\\address_web_tests\\src\\test\\resources\\fileOne.jpg"),
+                    "src/test/resources/images/file2.png",
                     "Title",
                     "Company",
                     "Address",

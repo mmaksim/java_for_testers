@@ -1,18 +1,16 @@
 package tests;
 
+import common.CommonFunctions;
 import model.ContactData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class ContactCreationTests extends TestBase {
-
-    static File photo = new File("src/test/resources/images/fileOne.jpg");
 
     public static List<ContactData> contactProvider() {
         var result = new ArrayList<ContactData>();
@@ -27,7 +25,7 @@ public class ContactCreationTests extends TestBase {
                                     .withAddress(address)
                                     .withPhones(phone, "", "", "")
                                     .withEmails(email, "", "")
-                                    .withPhoto(photo));
+                                    .withPhoto(CommonFunctions.randomFile("src/test/resources/images")));
                         }
                     }
 
@@ -37,24 +35,24 @@ public class ContactCreationTests extends TestBase {
         for (int i = 0; i < 5; i++) {
             result.add(new ContactData(
                     "",
-                    randomString(i * 10),
-                    randomString(i * 10),
-                    randomString(i * 10),
-                    randomString(i * 10),
-                    photo,
-                    randomString(i * 10),
-                    randomString(i * 10),
-                    randomString(i * 10),
-                    randomNumbers() + "1",
-                    randomNumbers() + "2",
-                    randomNumbers() + "3",
-                    randomNumbers() + "4",
+                    CommonFunctions.randomString(i * 10),
+                    CommonFunctions.randomString(i * 10),
+                    CommonFunctions.randomString(i * 10),
+                    CommonFunctions.randomString(i * 10),
+                    CommonFunctions.randomFile("src/test/resources/images"),
+                    CommonFunctions.randomString(i * 10),
+                    CommonFunctions.randomString(i * 10),
+                    CommonFunctions.randomString(i * 10),
+                    CommonFunctions.randomNumbers() + "1",
+                    CommonFunctions.randomNumbers() + "2",
+                    CommonFunctions.randomNumbers() + "3",
+                    CommonFunctions.randomNumbers() + "4",
                     "",
-                    randomString(i * 10) + "1@mail.com",
-                    randomString(i * 10) + "2@mail.com",
-                    randomString(i * 10) + "3@mail.com",
+                    CommonFunctions.randomString(i * 10) + "1@mail.com",
+                    CommonFunctions.randomString(i * 10) + "2@mail.com",
+                    CommonFunctions.randomString(i * 10) + "3@mail.com",
                     "",
-                    randomString(i * 10),
+                    CommonFunctions.randomString(i * 10),
                     "20",
                     "May",
                     "1990",

@@ -8,7 +8,7 @@ public record ContactData(String id,
                           String middleName,
                           String lastName,
                           String nickName,
-                          File file,
+                          String file,
                           String title,
                           String company,
                           String address,
@@ -31,7 +31,7 @@ public record ContactData(String id,
 ) {
 
     public ContactData() {
-        this("", "", "", "", "", null, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+        this("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
     }
 
     public ContactData withId(String id) {
@@ -287,7 +287,7 @@ public record ContactData(String id,
         );
     }
 
-    public ContactData withPhoto(File photo) {
+    public ContactData withPhoto(String photo) {
         return new ContactData(
                 this.id,
                 this.firstName,

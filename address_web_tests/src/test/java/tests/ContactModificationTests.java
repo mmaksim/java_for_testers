@@ -28,7 +28,7 @@ public class ContactModificationTests extends TestBase {
                 "Modify Middle Name",
                 "Modify Last Name",
                 "Modify Nick Name",
-                new File("C:\\Users\\Maks\\Desktop\\java_for_testers\\address_web_tests\\src\\test\\resources\\fileOne.jpg"),
+                "src/test/resources/images/file5.jpg",
                 "Modify Title",
                 "Modify Company",
                 "Modify Address",

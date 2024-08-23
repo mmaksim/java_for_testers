@@ -4,8 +4,10 @@ import model.ContactData;
 import org.openqa.selenium.By;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class ContactHelper extends HelperBase {
@@ -46,9 +48,9 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    private void attach(By locator, File file) {
-        if (file != null) {
-            manager.driver.findElement(locator).sendKeys(file.getAbsolutePath());
+    private void attach(By locator, String file) {
+        if (!Objects.equals(file, "")) {
+            manager.driver.findElement(locator).sendKeys(Paths.get(file).toAbsolutePath().toString());
         }
     }
 
