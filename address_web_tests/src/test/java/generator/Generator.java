@@ -14,15 +14,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Generator {
 
     @Parameter(names = {"--type", "-t"})
-    String type;
+    List<String> type= new ArrayList<>();;
     @Parameter(names = {"--output", "-o"})
-    String output;
+    List<String> output= new ArrayList<>();;
     @Parameter(names = {"--format", "-f"})
-    String format;
+    List<String> format= new ArrayList<>();;
     @Parameter(names = {"--count", "-c"})
     int count;
 
@@ -42,10 +43,10 @@ public class Generator {
         save(date);
     }
 
-    private Object generate() {
-        if ("groups".equals(type)) {
+            private Object generate() {
+        if (type.contains("groups")) {
             return generateGroups();
-        } else if ("contacts".equals(type)) {
+        } else if (type.contains("contacts")) {
             return generateContacts();
         } else {
             throw new IllegalArgumentException("Неизвестный тип данных " + type);
@@ -84,20 +85,26 @@ public class Generator {
     }
 
     private void save(Object date) throws IOException {
-        if ("json".equals(format)) {
+        if (format.contains("json")) {
             ObjectMapper mapper = new ObjectMapper();
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
             var json = mapper.writeValueAsString(date);
 
-            try (var writer = new FileWriter(output)) {
-                writer.write(json);
+            for (String out: output) {
+                try (var writer = new FileWriter(out)) {
+                    writer.write(json);
+                }
             }
-        } else if ("yaml".equals(format)) {
+        } else if (format.contains("yaml")) {
             var mapper = new YAMLMapper();
-            mapper.writeValue(new File(output), date);
-        } else if ("xml".equals(format)) {
+            for (String out: output) {
+                mapper.writeValue(new File(out), date);
+            }
+        } else if (format.contains("xml")) {
             var mapper = new XmlMapper();
-            mapper.writeValue(new File(output), date);
+            for (String out: output) {
+                mapper.writeValue(new File(out), date);
+            }
         } else {
             throw new IllegalArgumentException("Неизвестный формат данных " + format);
         }
