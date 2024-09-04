@@ -12,13 +12,13 @@ public class GroupModificationTests extends TestBase {
 
     @Test
     void canModifyGroup() {
-        if (app.groups().getCount() == 0) {
-            app.groups().createGroup(new GroupData()
-                    .withName("Group name")
-                    .withHeader("Group header")
-                    .withFooter("Group footer"));
+        if (app.hbm().getGroupCount() == 0) {
+            app.hbm().createGroup(new GroupData().
+                    withName("Group name").
+                    withHeader("Group header").
+                    withFooter("Group footer"));
         }
-        var oldGroups = app.groups().getList();
+        var oldGroups = app.hbm().getGroupList();
         var rnd = new Random();
         var index = rnd.nextInt(oldGroups.size());
 
@@ -27,9 +27,9 @@ public class GroupModificationTests extends TestBase {
                 .withHeader("modify header")
                 .withFooter("modify footer");
         app.groups().modifyGroup(oldGroups.get(index), testData);
-        var newGroups = app.groups().getList();
+        var newGroups = app.hbm().getGroupList();
         var expectedList = new ArrayList<>(oldGroups);
-        expectedList.set(index, testData.withId(oldGroups.get(index).id()).withHeader("").withFooter(""));
+        expectedList.set(index, testData.withId(oldGroups.get(index).id()));
         Comparator<GroupData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };

@@ -62,7 +62,7 @@ public class ContactRecord {
     public String homePage;
 
     @Column(name = "bday")
-    public String birthDay;
+    public int birthDay;
 
     @Column(name = "bmonth")
     public String birthMonth;
@@ -71,11 +71,62 @@ public class ContactRecord {
     public String birthYear;
 
     @Column(name = "aday")
-    public String anniversaryDay;
+    public int anniversaryDay;
 
     @Column(name = "amonth")
     public String anniversaryMonth;
 
     @Column(name = "ayear")
     public String anniversaryYear;
+
+    public ContactRecord() {
+    }
+
+    public ContactRecord(int id,
+                         String firstName,
+                         String middleName,
+                         String lastName,
+                         String nickName,
+                         String file,
+                         String title,
+                         String company,
+                         String address,
+                         String homeNumber,
+                         String mobileNumber,
+                         String workNumber,
+                         String faxNumber,
+                         String email,
+                         String email2,
+                         String email3,
+                         String homePage,
+                         int birthDay,
+                         String birthMonth,
+                         String birthYear,
+                         int anniversaryDay,
+                         String anniversaryMonth,
+                         String anniversaryYear) {
+        this.id = id;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.nickName = nickName;
+        this.file = file;
+        this.title = title;
+        this.company = company;
+        this.address = address;
+        this.homeNumber = homeNumber;
+        this.mobileNumber = mobileNumber;
+        this.workNumber = workNumber;
+        this.faxNumber = faxNumber;
+        this.email = email;
+        this.email2 = email2;
+        this.email3 = email3;
+        this.homePage = homePage;
+        this.birthDay = birthDay;
+        this.birthMonth = birthMonth;
+        this.birthYear = birthYear;
+        this.anniversaryDay = anniversaryDay;
+        this.anniversaryMonth = anniversaryMonth;
+        this.anniversaryYear = anniversaryYear;
+    }
 }

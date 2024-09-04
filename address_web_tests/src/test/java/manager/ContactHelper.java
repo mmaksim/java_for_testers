@@ -86,10 +86,15 @@ public class ContactHelper extends HelperBase {
     }
 
     public void removeContact(ContactData contact) {
+        refreshPage();
         openContactPage();
         selectContact(contact);
         removeSelectedContact();
         returnToContactPage();
+    }
+
+    private void refreshPage() {
+        manager.driver.navigate().refresh();
     }
 
     private void selectContact(ContactData contact) {
@@ -101,6 +106,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void removeAllContacts() {
+        refreshPage();
         selectAllContacts();
         removeSelectedContact();
     }

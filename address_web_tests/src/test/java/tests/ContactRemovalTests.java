@@ -11,8 +11,8 @@ public class ContactRemovalTests extends TestBase {
 
     @Test
     public void canContactRemoval() {
-        if (app.contacts().getCount() == 0) {
-            app.contacts().createContact(new ContactData("", "First Name",
+        if (app.hbm().getContactCount() == 0) {
+            app.hbm().createContact(new ContactData("", "First Name",
                     "Middle Name",
                     "Last Name",
                     "Nick Name",
@@ -37,11 +37,11 @@ public class ContactRemovalTests extends TestBase {
                     "December",
                     "2012"));
         }
-        var oldContacts = app.contacts().getList();
+        var oldContacts = app.hbm().getContactList();
         var random = new Random();
         var index = random.nextInt(oldContacts.size());
         app.contacts().removeContact(oldContacts.get(index));
-        var newContacts = app.contacts().getList();
+        var newContacts = app.hbm().getContactList();
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.remove(index);
         Assertions.assertEquals(newContacts, expectedList);
@@ -49,14 +49,14 @@ public class ContactRemovalTests extends TestBase {
 
     @Test
     public void canRemovalAllContacts() {
-        if (app.contacts().getCount() == 0) {
-            app.contacts().createContact(new ContactData()
+        if (app.hbm().getContactCount() == 0) {
+            app.hbm().createContact(new ContactData()
                     .withFirstName("TestName")
                     .withLastName("Ivanov")
                     .withAddress("New address")
                     .withEmails("test@mail.com", "test2@mail.com", "test3@mail.com")
                     .withPhones("757575", "+79994443231", "123321", "321"));
-            app.contacts().createContact(new ContactData()
+            app.hbm().createContact(new ContactData()
                     .withFirstName("Max")
                     .withLastName("Ivanov")
                     .withAddress("One more address")
@@ -64,6 +64,6 @@ public class ContactRemovalTests extends TestBase {
                     .withPhones("757575", "+79992243231", "123321", "321"));
         }
         app.contacts().removeAllContacts();
-        Assertions.assertEquals(0, app.contacts().getCount());
+        Assertions.assertEquals(0, app.hbm().getContactCount());
     }
 }
