@@ -20,7 +20,7 @@ public class HibernateHelper extends HelperBase {
         sessionFactory = new Configuration()
                 .addAnnotatedClass(ContactRecord.class)
                 .addAnnotatedClass(GroupRecord.class)
-                .setProperty(AvailableSettings.URL, "jdbc:mysql://localhost/addressbook")
+                .setProperty(AvailableSettings.URL, "jdbc:mysql://localhost/addressbook?zeroDateTimeBehavior=convertToNull")
                 .setProperty(AvailableSettings.USER, "root")
                 .setProperty(AvailableSettings.PASS, "")
                 .buildSessionFactory();
@@ -50,12 +50,9 @@ public class HibernateHelper extends HelperBase {
         var id = data.id();
         var bDay = data.id();
         var aDay = data.id();
-        if ("".equals(id)) {
-            id = "0";
-        }
+        if ("".equals(id)) {id = "0";}
         if ("".equals(bDay)) {bDay="0";}
         if ("".equals(aDay)) {aDay="0";}
-
 
         return new ContactRecord(Integer.parseInt(id),
                 data.firstName(),
