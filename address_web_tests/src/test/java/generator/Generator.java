@@ -27,7 +27,7 @@ public class Generator {
     @Parameter(names = {"--count", "-c"})
     int count;
 
-    //--type groups --output groups.json --format json --count 3
+    //--type groups --output groups.xml --format xml --count 10
     //--type contacts --output contacts.json --format json --count 5
     public static void main(String[] args) throws IOException {
         var generator = new Generator();

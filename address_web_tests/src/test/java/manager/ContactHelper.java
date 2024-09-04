@@ -1,7 +1,9 @@
 package manager;
 
 import model.ContactData;
+import model.GroupData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -20,6 +22,28 @@ public class ContactHelper extends HelperBase {
         fillContactForm(contact);
         submitContactCreation();
         returnToContactPage();
+    }
+
+    public void createContact(ContactData contact, GroupData group) {
+        initContactCreation();
+        fillContactForm(contact);
+        selectGroup(group);
+        submitContactCreation();
+        returnToContactPage();
+    }
+
+    private void selectGroup(GroupData group) {
+        selectGroup(By.name("new_group"), group);
+
+    }
+
+    private void addToGroup(GroupData group) {
+        selectGroup(By.name("to_group"), group);
+        click(By.name("add"));
+    }
+
+    private void selectGroup(By locator, GroupData group) {
+        new Select(manager.driver.findElement(locator)).selectByValue(group.id());
     }
 
     private void fillContactForm(ContactData contactData) {
@@ -160,6 +184,21 @@ public class ContactHelper extends HelperBase {
         var entry = elementId.findElement(By.xpath("../.."));
         var editButton = entry.findElement(By.cssSelector("td:nth-child(8)"));
         editButton.click();
+    }
+
+    public void addToGroup(ContactData contact, GroupData group) {
+        openContactPage();
+        selectContact(contact);
+        addToGroup(group);
+        returnToContactPage();
+    }
+
+    public void removeGroup(ContactData contact, GroupData group) {
+        openContactPage();
+        selectGroup(By.name("group"), group);
+        selectContact(contact);
+        click(By.name("remove"));
+        returnToContactPage();
     }
 }
 

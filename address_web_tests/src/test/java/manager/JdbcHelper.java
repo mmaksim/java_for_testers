@@ -1,11 +1,9 @@
 package manager;
 
 
-import common.CommonFunctions;
 import model.ContactData;
 import model.GroupData;
 
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -96,5 +94,19 @@ public class JdbcHelper extends HelperBase {
             throw new RuntimeException(e);
         }
         return contact;
+    }
+
+    public void checkConsistency() {
+        try (var conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook", "root", "");
+             var stmt = conn.createStatement();
+             var result = stmt.executeQuery("SELECT * FROM address_in_groups ag LEFT JOIN addressbook ab ON ab.id = ag.id WHERE ab.id IS NULL")) {
+            if (result.next()) {
+                throw new IllegalStateException("DB is corrupted");
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }
