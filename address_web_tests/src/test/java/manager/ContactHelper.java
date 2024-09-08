@@ -107,17 +107,17 @@ public class ContactHelper extends HelperBase {
         if (!manager.isElementPresent(By.id("maintable"))) {
             click(By.linkText("home"));
         }
+       else refreshPage();
     }
 
     public void removeContact(ContactData contact) {
-        refreshPage();
         openContactPage();
         selectContact(contact);
         removeSelectedContact();
         returnToContactPage();
     }
 
-    private void refreshPage() {
+    public void refreshPage() {
         manager.driver.navigate().refresh();
     }
 
@@ -130,12 +130,12 @@ public class ContactHelper extends HelperBase {
     }
 
     public void removeAllContacts() {
-        refreshPage();
         selectAllContacts();
         removeSelectedContact();
     }
 
     private void selectAllContacts() {
+        openContactPage();
         click(By.id("MassCB"));
     }
 
