@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class GroupCreationTests extends TestBase {
@@ -38,7 +40,7 @@ public class GroupCreationTests extends TestBase {
         return result;
     }
 
-    public static Stream<GroupData> singleRandomGroup() {
+    public static Stream<GroupData> randomGroups() {
         Supplier<GroupData> randomGroup = () -> new GroupData().withName(CommonFunctions.randomString(10))
                 .withHeader(CommonFunctions.randomString(20))
                 .withFooter(CommonFunctions.randomString(30));
@@ -46,28 +48,22 @@ public class GroupCreationTests extends TestBase {
     }
 
     @ParameterizedTest
-    @MethodSource("singleRandomGroup")
+    @MethodSource("randomGroups")
     public void canCreateGroup(GroupData group) {
         var oldGroups = app.hbm().getGroupList();
         app.groups().createGroup(group);
         var newGroups = app.hbm().getGroupList();
-        Comparator<GroupData> compareById = (o1, o2) -> {
-            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
-        };
-        newGroups.sort(compareById);
-        var maxId = group.withId(newGroups.getLast().id());
+        var extraGroups = newGroups.stream().filter(g -> !oldGroups.contains(g)).toList();
+        var newId = extraGroups.get(0).id();
         var expectedList = new ArrayList<>(oldGroups);
-        expectedList.add(maxId);
-        expectedList.sort(compareById);
-        Assertions.assertEquals(newGroups, expectedList);
-
+        expectedList.add(group.withId(newId));
+        Assertions.assertEquals(Set.copyOf(newGroups), Set.copyOf(expectedList));
         var newUIGroups = app.groups().getList();
-        newUIGroups.sort(compareById);
         var newExpectedGroups = new ArrayList<GroupData>();
-        for (var uiExpected: expectedList){
+        for (var uiExpected : expectedList) {
             newExpectedGroups.add(uiExpected.withFooter("").withHeader(""));
         }
-        Assertions.assertEquals(newUIGroups, newExpectedGroups);
+        Assertions.assertEquals(Set.copyOf(newUIGroups), Set.copyOf(newExpectedGroups));
     }
 
     public static List<GroupData> negativeGroupProvider() {
