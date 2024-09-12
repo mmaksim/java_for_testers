@@ -3,12 +3,13 @@ package manager;
 import model.ContactData;
 import model.GroupData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class ContactHelper extends HelperBase {
@@ -106,8 +107,7 @@ public class ContactHelper extends HelperBase {
     public void openContactPage() {
         if (!manager.isElementPresent(By.id("maintable"))) {
             click(By.linkText("home"));
-        }
-       else refreshPage();
+        } else refreshPage();
     }
 
     public void removeContact(ContactData contact) {
@@ -179,11 +179,16 @@ public class ContactHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    private void initContactModification(ContactData contact) {
-        var elementId = manager.driver.findElement(By.id(contact.id()));
-        var entry = elementId.findElement(By.xpath("../.."));
+    public void initContactModification(ContactData contact) {
+        var entry = getRow(contact);
         var editButton = entry.findElement(By.cssSelector("td:nth-child(8)"));
         editButton.click();
+    }
+
+    private WebElement getRow(ContactData contact) {
+        var elementId = manager.driver.findElement(By.id(contact.id()));
+        var entry = elementId.findElement(By.xpath("../.."));
+        return entry;
     }
 
     public void addToGroup(ContactData contact, GroupData group) {
@@ -199,6 +204,58 @@ public class ContactHelper extends HelperBase {
         selectContact(contact);
         click(By.name("remove"));
         returnToContactPage();
+    }
+
+    public String getPhones(ContactData contact) {
+        var entry = getRow(contact);
+        var phones = entry.findElement(By.cssSelector("td:nth-child(6)")).getText();
+        return phones;
+    }
+
+    public Map<String, String> getPhones() {
+        var result = new HashMap<String, String>();
+        var rows = manager.driver.findElements(By.name("entry"));
+        for (var row : rows) {
+            var id = row.findElement(By.tagName("input")).getAttribute("id");
+            var phones = row.findElements(By.tagName("td")).get(5).getText();
+            result.put(id, phones);
+        }
+        return result;
+    }
+
+    public String getEmails(ContactData contact) {
+        var entry = getRow(contact);
+        var emails = entry.findElement(By.cssSelector("td:nth-child(5)")).getText();
+        return emails;
+    }
+
+    public String getAddress(ContactData contact) {
+        var entry = getRow(contact);
+        var address = entry.findElement(By.cssSelector("td:nth-child(4)")).getText();
+        return address;
+    }
+
+    public String getPhoneEditMode() {
+        var homeNumber = manager.driver.findElement(By.name("home")).getAttribute("value");
+        var mobileNumber = manager.driver.findElement(By.name("mobile")).getAttribute("value");
+        var workNumber = manager.driver.findElement(By.name("work")).getAttribute("value");
+        return Stream.of(homeNumber, mobileNumber, workNumber)
+                .filter(s -> s != null && !"".equals(s))
+                .collect(Collectors.joining("\n"));
+    }
+
+    public String getAddressEditMode() {
+        var address = manager.driver.findElement(By.name("address")).getAttribute("value");
+        return address;
+    }
+
+    public String getEmailsEditMode() {
+        var email = manager.driver.findElement(By.name("email")).getAttribute("value");
+        var email2 = manager.driver.findElement(By.name("email2")).getAttribute("value");
+        var email3 = manager.driver.findElement(By.name("email3")).getAttribute("value");
+        return Stream.of(email, email2, email3)
+                .filter(s -> s != null && !"".equals(s))
+                .collect(Collectors.joining("\n"));
     }
 }
 
