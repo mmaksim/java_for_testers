@@ -226,4 +226,24 @@ public class HibernateHelper extends HelperBase {
             return convert(session.get(ContactRecord.class, id));
         });
     }
+
+    public boolean isExistContactInGroup(ContactData contact, GroupData group) {
+        return sessionFactory.fromSession(session -> {
+            Long count = session.createQuery("SELECT COUNT(a) FROM AddressInGroup a WHERE a.id = :id AND a.group_id = :groupId", Long.class)
+                    .setParameter("id", contact.id())
+                    .setParameter("groupId", group.id())
+                    .uniqueResult();
+            return count != null && count > 0;
+        });
+    }
+
+    public boolean isExistContactInGroup(int contactId, int groupId) {
+        return sessionFactory.fromSession(session -> {
+            Long count = session.createQuery("SELECT COUNT(a) FROM AddressInGroup a WHERE a.id = :id AND a.group_id = :groupId", Long.class)
+                    .setParameter("id", contactId)
+                    .setParameter("groupId", groupId)
+                    .uniqueResult();
+            return count != null && count > 0;
+        });
+    }
 }

@@ -109,7 +109,18 @@ public class ContactCreationTests extends TestBase {
 
     @Test
     public void canAddContactToGroup() {
-        if (app.hbm().getContactCount() == 0) {
+        var contacts = app.hbm().getContactList();
+        var groups = app.hbm().getGroupList();
+
+        if (groups.isEmpty()) {
+            var group = new GroupData().
+                    withName(CommonFunctions.randomString(10)).
+                    withHeader(CommonFunctions.randomString(10)).
+                    withFooter(CommonFunctions.randomString(10));
+            app.hbm().createGroup(group);
+            groups = app.hbm().getGroupList();
+        }
+        if (contacts.isEmpty()) {
             var contact = new ContactData()
                     .withLastName(CommonFunctions.randomString(10))
                     .withFirstName(CommonFunctions.randomString(10))
@@ -120,24 +131,39 @@ public class ContactCreationTests extends TestBase {
                             CommonFunctions.randomString(10) + "@mail.com")
                     .withPhoto(CommonFunctions.randomFile("src/test/resources/images"));
             app.hbm().createContact(contact);
+            contacts = app.hbm().getContactList();
         }
-        if (app.hbm().getGroupCount() == 0) {
-            var group = new GroupData().
-                    withName(CommonFunctions.randomString(10)).
-                    withHeader(CommonFunctions.randomString(10)).
-                    withFooter(CommonFunctions.randomString(10));
-            app.hbm().createGroup(group);
+
+        ContactData contactData = new ContactData();
+        GroupData groupData = new GroupData();
+
+        outerLoop:
+        for (var contact : contacts) {
+            for (var group : groups) {
+                if (!app.hbm().getContactsInGroup(group).contains(contact)) {
+                    contactData = contact;
+                    groupData = group;
+                    break outerLoop;
+                }
+            }
         }
-        var contacts = app.hbm().getContactList();
-        var groups = app.hbm().getGroupList();
-        var rnd = new Random();
-        var contactsIndex = rnd.nextInt(contacts.size());
-        var groupsIndex = rnd.nextInt(groups.size());
-        var oldRelated = app.hbm().getContactsInGroup(groups.get(groupsIndex));
-        app.contacts().addToGroup(contacts.get(contactsIndex), groups.get(groupsIndex));
+        if (groupData.id().equals("")) {
+             var group = new GroupData().
+                                withName(CommonFunctions.randomString(10)).
+                                withHeader(CommonFunctions.randomString(10)).
+                                withFooter(CommonFunctions.randomString(10));
+                        app.hbm().createGroup(group);
+                        groupData = app.hbm().getGroupList().getLast();
+                        var rnd = new Random();
+                        var contactsIndex = rnd.nextInt(contacts.size());
+                        contactData = app.hbm().getContactList().get(contactsIndex);
+        }
+
+        var oldRelated = app.hbm().getContactsInGroup(groupData);
+        app.contacts().addToGroup(contactData, groupData);
         var expectedList = new ArrayList<ContactData>(oldRelated);
-        expectedList.add(contacts.get(contactsIndex));
-        var newRelated = app.hbm().getContactsInGroup(groups.get(groupsIndex));
+        expectedList.add(contactData);
+        var newRelated = app.hbm().getContactsInGroup(groupData);
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
