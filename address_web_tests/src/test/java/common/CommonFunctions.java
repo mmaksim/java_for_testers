@@ -3,14 +3,21 @@ package common;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.Random;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CommonFunctions {
+
+
     public static String randomString(int length) {
       var rnd = new Random();
-       var result = "";
-       for (int i = 0; i < length; i++) {
-           result = result + (char) ('a' + rnd.nextInt(26));
-       }
+        Supplier<Integer> randomNumbers = () -> rnd.nextInt(26);
+        var result = Stream.generate(randomNumbers)
+                .limit(length)
+                .map(i -> 'a' + i)
+                .map(Character::toString)
+                .collect(Collectors.joining());
        return result;
     }
 
@@ -23,11 +30,14 @@ public class CommonFunctions {
 
     public static String randomNumbers() {
         var rnd = new Random();
-        var result = "";
         String s = "123456789";
-        for (int i = 0; i < 12; i++) {
-            result = result + s.charAt(rnd.nextInt(s.length()));
-        }
+        Supplier<Integer> randomNumbers = () -> rnd.nextInt(9);
+        var result = Stream.generate(randomNumbers).limit(12)
+                .map(i -> {
+                    var number = "";
+                    number += s.charAt(i);
+                    return number;
+                }).collect(Collectors.joining());
         return result;
     }
 }

@@ -11,6 +11,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HibernateHelper extends HelperBase {
 
@@ -29,11 +30,7 @@ public class HibernateHelper extends HelperBase {
     }
 
     static List<GroupData> convertGroupList(List<GroupRecord> records) {
-        List<GroupData> result = new ArrayList<>();
-        for (var record : records) {
-            result.add(convert(record));
-        }
-        return result;
+        return records.stream().map(HibernateHelper::convert).collect(Collectors.toList());
     }
 
     private static GroupData convert(GroupRecord record) {
@@ -116,36 +113,37 @@ public class HibernateHelper extends HelperBase {
     }
 
     static List<ContactData> convertContactList(List<ContactRecord> records) {
-        List<ContactData> result = new ArrayList<>();
-        for (var record : records) {
-            result.add(new ContactData(
-                    "" + record.id,
-                    record.firstName,
-                    record.middleName,
-                    record.lastName,
-                    record.nickName,
-                    record.file,
-                    record.title,
-                    record.company,
-                    record.address,
-                    record.homeNumber,
-                    record.mobileNumber,
-                    record.workNumber,
-                    record.faxNumber,
-                    (record.homeNumber + " " + record.mobileNumber + " " + record.workNumber + " " + record.faxNumber),
-                    record.email,
-                    record.email2,
-                    record.email3,
-                    (record.email + " " + record.email2 + " " + record.email3),
-                    record.homePage,
-                    "" + record.birthDay,
-                    record.birthMonth,
-                    record.birthYear,
-                    "" + record.anniversaryDay,
-                    record.anniversaryMonth,
-                    record.anniversaryYear));
-        }
-        return result;
+        return records.stream().map(HibernateHelper::convert).collect(Collectors.toList());
+//        List<ContactData> result = new ArrayList<>();
+//        for (var record : records) {
+//            result.add(new ContactData(
+//                    "" + record.id,
+//                    record.firstName,
+//                    record.middleName,
+//                    record.lastName,
+//                    record.nickName,
+//                    record.file,
+//                    record.title,
+//                    record.company,
+//                    record.address,
+//                    record.homeNumber,
+//                    record.mobileNumber,
+//                    record.workNumber,
+//                    record.faxNumber,
+//                    (record.homeNumber + " " + record.mobileNumber + " " + record.workNumber + " " + record.faxNumber),
+//                    record.email,
+//                    record.email2,
+//                    record.email3,
+//                    (record.email + " " + record.email2 + " " + record.email3),
+//                    record.homePage,
+//                    "" + record.birthDay,
+//                    record.birthMonth,
+//                    record.birthYear,
+//                    "" + record.anniversaryDay,
+//                    record.anniversaryMonth,
+//                    record.anniversaryYear));
+//        }
+//        return result;
     }
 
     public List<GroupData> getGroupList() {

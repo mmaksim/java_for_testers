@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class GroupCreationTests extends TestBase {
 
@@ -36,14 +38,15 @@ public class GroupCreationTests extends TestBase {
         return result;
     }
 
-    public static List<GroupData> singleRandomGroup() {
-        return List.of(new GroupData().withName(CommonFunctions.randomString(10))
+    public static Stream<GroupData> singleRandomGroup() {
+        Supplier<GroupData> randomGroup = () -> new GroupData().withName(CommonFunctions.randomString(10))
                 .withHeader(CommonFunctions.randomString(20))
-                .withFooter(CommonFunctions.randomString(30)));
+                .withFooter(CommonFunctions.randomString(30));
+        return Stream.generate(randomGroup).limit(3);
     }
 
     @ParameterizedTest
-    @MethodSource("groupProvider")
+    @MethodSource("singleRandomGroup")
     public void canCreateGroup(GroupData group) {
         var oldGroups = app.hbm().getGroupList();
         app.groups().createGroup(group);

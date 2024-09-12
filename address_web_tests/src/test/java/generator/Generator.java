@@ -15,6 +15,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Generator {
 
@@ -53,35 +56,30 @@ public class Generator {
         }
     }
 
-    private Object generateContacts() {
-        var result = new ArrayList<ContactData>();
-        for (int i = 0; i < count; i++) {
-            result.add(new ContactData()
-                    .withLastName(CommonFunctions.randomString(i * 5))
-                    .withFirstName(CommonFunctions.randomString(i * 5))
-                    .withAddress(CommonFunctions.randomString(i * 5))
-                    .withPhones(CommonFunctions.randomNumbers(),
-                            CommonFunctions.randomNumbers(),
-                            CommonFunctions.randomNumbers(),
-                            CommonFunctions.randomNumbers())
-                    .withEmails(CommonFunctions.randomString(i * 5) + "@mail.com",
-                            CommonFunctions.randomString(i * 5) + "1@mail.com",
-                            CommonFunctions.randomString(i * 5) + "1@mail.com")
-                    .withPhoto(CommonFunctions.randomFile("src/test/resources/images")));
-        }
-        return result;
+    private Object generateDate(Supplier<Object> dateSupplier){
+       return Stream.generate(dateSupplier).limit(count).collect(Collectors.toList());
     }
 
+    private Object generateContacts() {
+        return generateDate(() -> new ContactData()
+                .withLastName(CommonFunctions.randomString( 5))
+                .withFirstName(CommonFunctions.randomString(5))
+                .withAddress(CommonFunctions.randomString(5))
+                .withPhones(CommonFunctions.randomNumbers(),
+                        CommonFunctions.randomNumbers(),
+                        CommonFunctions.randomNumbers(),
+                        CommonFunctions.randomNumbers())
+                .withEmails(CommonFunctions.randomString(5) + "@mail.com",
+                        CommonFunctions.randomString(5) + "1@mail.com",
+                        CommonFunctions.randomString(5) + "1@mail.com")
+                .withPhoto(CommonFunctions.randomFile("src/test/resources/images")));
+    }
 
     private Object generateGroups() {
-        var result = new ArrayList<GroupData>();
-        for (int i = 0; i < count; i++) {
-            result.add(new GroupData()
-                    .withName(CommonFunctions.randomString(i * 10))
-                    .withHeader(CommonFunctions.randomString(i * 10))
-                    .withFooter(CommonFunctions.randomString(i * 10)));
-        }
-        return result;
+        return generateDate(() -> new GroupData()
+                .withName(CommonFunctions.randomString(10))
+                .withHeader(CommonFunctions.randomString(10))
+                .withFooter(CommonFunctions.randomString(10)));
     }
 
     private void save(Object date) throws IOException {
