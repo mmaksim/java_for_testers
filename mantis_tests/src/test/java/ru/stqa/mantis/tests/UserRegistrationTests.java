@@ -1,14 +1,11 @@
 package ru.stqa.mantis.tests;
 
-import kotlin.ParameterName;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import ru.stqa.mantis.common.CommonFunctions;
 import ru.stqa.mantis.model.UserData;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +31,8 @@ public class UserRegistrationTests extends TestBase {
         app.user().create(user);
         var url = app.mail().getUrl(user);
         app.driver().get(url);
-        app.user().setPassword(user);
+        app.user().finishCreation(user);
         app.http().login(user);
-        app.http().isLoggedIn();
+        Assertions.assertTrue(app.http().isLoggedIn());
     }
 }

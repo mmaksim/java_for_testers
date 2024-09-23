@@ -1,6 +1,5 @@
 package ru.stqa.mantis.manager;
 
-import net.bytebuddy.asm.MemberSubstitution;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -43,13 +42,13 @@ public class UserHelper extends HelperBase {
         element.click();
     }
 
-    public void setPassword(String password, String confirmPassword) {
+    public void finishCreation(String password, String confirmPassword) {
         type(By.id("password"), password);
         type(By.id("password-confirm"), confirmPassword);
         click(By.className("btn-success"));
     }
 
-    public void setPassword(UserData user) {
-        setPassword(user.password(), user.password());
+    public void finishCreation(UserData user) {
+        finishCreation(user.password(), user.password());
     }
 }
