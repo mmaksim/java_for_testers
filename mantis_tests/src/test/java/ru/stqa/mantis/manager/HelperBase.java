@@ -22,4 +22,8 @@ public class HelperBase {
     protected boolean isElementPresent(By locator) {
         return manager.driver().findElements(locator).size() > 0;
     }
+
+    protected boolean isElementDisplayed(By locator) {
+        return manager.driver().findElement(locator).isDisplayed();
+    }
 }

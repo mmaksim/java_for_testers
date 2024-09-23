@@ -1,6 +1,7 @@
 package ru.stqa.mantis.manager;
 
 import okhttp3.*;
+import ru.stqa.mantis.model.UserData;
 
 import java.io.IOException;
 import java.net.CookieManager;
@@ -29,6 +30,10 @@ public class HttpSessionHelper extends  HelperBase {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void login(UserData user){
+        login(user.name(), user.password());
     }
 
     public boolean isLoggedIn() {

@@ -3,6 +3,7 @@ package ru.stqa.mantis.manager;
 
 import org.openqa.selenium.io.CircularOutputStream;
 import org.openqa.selenium.os.CommandLine;
+import ru.stqa.mantis.model.UserData;
 
 public class JamesCliHelper extends HelperBase {
 
@@ -10,7 +11,6 @@ public class JamesCliHelper extends HelperBase {
         super(manager);
     }
 
-    //-cp "james-server-jpa-app.lib/*" org.apache.james.cli.ServerCmd AddUser user1@localhost password
     public void addUser(String email, String password) {
         CommandLine cmd = new CommandLine(
                 "java", "-cp", "james-server-jpa-app.lib/*",
@@ -19,8 +19,12 @@ public class JamesCliHelper extends HelperBase {
         cmd.setWorkingDirectory(manager.property("james.workingDir"));
         CircularOutputStream out = new CircularOutputStream();
         cmd.copyOutputTo(out);
-       cmd.execute();
-       cmd.waitFor();
+        cmd.execute();
+        cmd.waitFor();
         System.out.println(out);
+    }
+
+    public void addUser(UserData user) {
+        addUser(user.email(), user.password());
     }
 }
