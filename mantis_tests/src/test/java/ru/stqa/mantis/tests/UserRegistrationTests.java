@@ -64,9 +64,8 @@ public class UserRegistrationTests extends TestBase {
         app.user().create(userMail);
         System.out.println(userMail);
 
-        var message = app.developerMail().receive(userMail, Duration.ofSeconds(10));
+        var message = app.developerMail().receive(userMail, Duration.ofSeconds(100));
         var url = CommonFunctions.extractUrl(message);
-//v-lkvpc5@developermail.com
 
         app.driver().get(url);
         app.user().finishCreation(userMail);

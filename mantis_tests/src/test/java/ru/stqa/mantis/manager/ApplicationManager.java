@@ -19,6 +19,7 @@ public class ApplicationManager {
     private MailHelper mailHelper;
     private UserHelper userHelper;
     private DeveloperMailHelper developerMailHelper;
+    private RestApiHelper restApiHelper;
 
 
     public void init(String browser, Properties properties) {
@@ -93,5 +94,12 @@ public class ApplicationManager {
             developerMailHelper = new DeveloperMailHelper(this);
         }
         return developerMailHelper;
+    }
+
+    public RestApiHelper rest() {
+        if (restApiHelper == null) {
+            restApiHelper = new RestApiHelper(this);
+        }
+        return restApiHelper;
     }
 }
