@@ -52,6 +52,17 @@ public class UserRegistrationTests extends TestBase {
         Assertions.assertTrue(app.http().isLoggedIn());
     }
 
+    @ParameterizedTest
+    @MethodSource("userProvider")
+    void canRegisterUserByRest(UserData userData) {
+        app.jamesApi().addUser(userData); //регистрирует новый адрес на почтовом сервере James, используя REST API.
+        app.rest().createUser(userData);//регистрацию нового пользователя в Mantis, используя REST API.
+        var url = app.mail().getUrl(userData);
+        app.driver().get(url);
+        app.user().finishCreation(userData);
+        app.http().login(userData);
+        Assertions.assertTrue(app.http().isLoggedIn());
+    }
 
     UserData userMail;
     @Test
@@ -73,8 +84,8 @@ public class UserRegistrationTests extends TestBase {
         Assertions.assertTrue(app.http().isLoggedIn());
     }
 
-    @AfterEach
+  /*  @AfterEach
     void deleteMailUser(){
         app.developerMail().deleteUser(userMail);
-    }
+    }*/
 }
