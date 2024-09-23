@@ -11,12 +11,15 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="mantis_tests.main" />
     <orderEntry type="library" name="Gradle: org.eclipse.angus:angus-mail:2.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.17.1" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter:5.10.0" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-java:4.23.0" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp-urlconnection:4.12.0" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okhttp3:okhttp:4.12.0" level="project" />
     <orderEntry type="library" name="Gradle: jakarta.mail:jakarta.mail-api:2.1.2" level="project" />
     <orderEntry type="library" name="Gradle: jakarta.activation:jakarta.activation-api:2.1.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.17.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.17.1" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.10.0" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.10.0" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-chrome-driver:4.23.0" level="project" />
@@ -71,7 +74,6 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.10.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.platform:junit-platform-engine:1.10.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.opentelemetry:opentelemetry-api-incubator:1.40.0-alpha" level="project" />
-    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.jaxb:jaxb-runtime:4.0.2" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="mantis_tests.main" />
 </module>

@@ -1,6 +1,7 @@
 package ru.stqa.mantis.manager;
 
 import jakarta.mail.*;
+import ru.stqa.mantis.common.CommonFunctions;
 import ru.stqa.mantis.model.MailMessage;
 import ru.stqa.mantis.model.UserData;
 
@@ -89,12 +90,7 @@ public class MailHelper extends HelperBase {
 
     public String getUrl(String email, String password) {
         var text = getMessage(email, password);
-        var pattern = Pattern.compile("http://\\S*");
-        var matcher = pattern.matcher(text);
-        if (matcher.find()) {
-            var url = text.substring(matcher.start(), matcher.end());
-            return url;
-        } else return null;
+        return CommonFunctions.extractUrl(text);
     }
 
     public String getUrl(UserData user) {
