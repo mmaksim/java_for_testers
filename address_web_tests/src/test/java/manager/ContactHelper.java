@@ -105,9 +105,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void openContactPage() {
-        if (!manager.isElementPresent(By.id("maintable"))) {
-            click(By.linkText("home"));
-        } else refreshPage();
+        click(By.id("logo"));
     }
 
     public void removeContact(ContactData contact) {
