@@ -213,6 +213,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public Map<String, String> getPhones() {
+        openContactPage();
         var result = new HashMap<String, String>();
         var rows = manager.driver.findElements(By.name("entry"));
         for (var row : rows) {
